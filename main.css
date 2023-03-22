@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.all {
+    background: #000;
+    width: 100%;
+    height: 100vh;
+}
+
+.game_wrapper {
+    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    padding: 80px;
+    min-width: 500px;
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 3px;
+}
+
+.text3 {
+    text-transform: uppercase;
+    margin-top: -20px;
+    color: #4b4f52;
+    font-size: 25px;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.text2 {
+    text-transform: uppercase;
+    margin-top: 20px;
+    color: aliceblue;
+    font-size: 20px;
+    text-align: center;
+}
+
+.game {
+    padding-top: 50%;
+    position: relative;
+    border: 2px solid orange;
+    background: orange;
+    height: 100%;
+    width: 100%;
+    transition-property: background;
+    transition-duration: 4s;
+    border-radius: 3px;
+}
+
+.game::after {
+    content: '';
+    width: 0px;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    border: 2px dashed black;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: wheat;
+    padding-bottom: 20px;
+}
+
+
+.padL,
+.padR {
+    width: 10px;
+    height: 50px;
+    height: 20%;
+    background: #000;
+    position: absolute;
+    top: 0px;
+    border-radius: 2px;
+}
+
+.padL {
+    left: 0;
+}
+
+.padR {
+    right: 0;
+}
+
+.ball {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #000;
+}

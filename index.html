@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PingPong</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .all {
+            background: #000;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .game_wrapper {
+            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+
+            padding: 80px;
+            min-width: 500px;
+            width: 100%;
+            max-width: 1100px;
+            border-radius: 3px;
+        }
+
+        .text3 {
+            text-transform: uppercase;
+            margin-top: -20px;
+            color: #4b4f52;
+            font-size: 25px;
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        .text2 {
+            text-transform: uppercase;
+            margin-top: 20px;
+            color: aliceblue;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .game {
+            padding-top: 50%;
+            position: relative;
+            border: 2px solid orange;
+            background: orange;
+            height: 100%;
+            width: 100%;
+            transition-property: background;
+            transition-duration: 4s;
+            border-radius: 3px;
+        }
+
+        .game::after {
+            content: '';
+            width: 0px;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            border: 2px dashed black;
+        }
+
+        .text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: wheat;
+            padding-bottom: 20px;
+        }
+
+
+        .padL,
+        .padR {
+            width: 10px;
+            height: 50px;
+            height: 20%;
+            background: #000;
+            position: absolute;
+            top: 0px;
+            border-radius: 2px;
+        }
+
+        .padL {
+            left: 0;
+        }
+
+        .padR {
+            right: 0;
+        }
+
+        .ball {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #000;
+        }
+    </style>
+    <div class="all">
+        <div class="game_wrapper">
+            <div class="text3">
+                press W & S
+            </div>
+            <div class="text">
+                0
+            </div>
+            <div class="game">
+                <div class="ball"></div>
+                <div class="padL"></div>
+                <div class="padR"></div>
+
+            </div>
+            <div class="text2">
+                best score: <span>0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        alert('aaa')
+        const game = document.querySelector('.game');
+        const game_wrapper = document.querySelector('.game_wrapper');
+        const padL = document.querySelector('.padL');
+        const padR = document.querySelector('.padR');
+        const ball = document.querySelector('.ball');
+        const text = document.querySelector('.text');
+        const text2 = document.querySelector('.text2 span');
+
+        let bg1 = '#db8e00';
+        let bg2 = '#03db00';
+        let bg3 = '#00dba8';
+        let bg4 = '#0039db';
+        let bg5 = '#c300db';
+        let bg6 = '#9bdb00';
+        let background_var = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code == 'KeyW') {
+                if (parseFloat(getComputedStyle(padL).top) > 0) {
+                    padL.style.top = `${parseFloat(getComputedStyle(padL).top) - parseFloat(getComputedStyle(padL).height) / 5}px`;
+                }
+                if (parseFloat(getComputedStyle(padR).top) > 0) {
+                    padR.style.top = `${parseFloat(getComputedStyle(padR).top) - parseFloat(getComputedStyle(padR).height) / 5}px`;
+                }
+            } else if (e.code == 'KeyS') {
+                if (parseFloat(getComputedStyle(padL).top) < parseFloat(getComputedStyle(game).height) - 5 - parseFloat(getComputedStyle(padL).height)) {
+                    padL.style.top = `${parseFloat(getComputedStyle(padL).top) + parseFloat(getComputedStyle(padL).height) / 5}px`;
+                }
+                if (parseFloat(getComputedStyle(padR).top) < parseFloat(getComputedStyle(game).height) - 5 - parseFloat(getComputedStyle(padR).height)) {
+                    padR.style.top = `${parseFloat(getComputedStyle(padR).top) + parseFloat(getComputedStyle(padR).height) / 5}px`;
+                }
+            }
+
+
+        });
+        let Mainwidth = window.innerWidth;
+        setInterval((bg_var) => {
+            if (background_var % 6 == 1) game.style.background = bg1;
+            if (background_var % 6 == 2) game.style.background = bg2;
+            if (background_var % 6 == 3) game.style.background = bg3;
+            if (background_var % 6 == 4) game.style.background = bg4;
+            if (background_var % 6 == 5) game.style.background = bg5;
+            if (background_var % 6 == 0) game.style.background = bg6;
+            background_var += 1;
+            Mainwidth = window.innerWidth;
+            if (i == 20) i = 20;
+        }, 2000, background_var);
+
+        let speedX = 7 / 2;
+        speedX = Mainwidth / 150;
+        let speedY = 5 / 2;
+        speedY = Mainwidth / 210;
+        let i = 0;
+        setInterval(() => {
+            ball.style.height = ball.style.width = `${Mainwidth / 60}px`
+            padL.style.width = padR.style.width = `${Mainwidth / 60}px`;
+            padL.style.borderRadius = padR.style.borderRadius = `${Mainwidth / 200}px`
+            text.innerHTML = `${i}`;
+            if (parseFloat(parseFloat(getComputedStyle(ball).top)) <= 0) {
+                speedY = -5 / 2 - i / 2;
+                speedY = -Mainwidth / 210 - i / 4;
+            } else if (parseFloat(parseFloat(getComputedStyle(ball).top)) >= parseFloat(game.getBoundingClientRect().height) - parseFloat(ball.getBoundingClientRect().height * 2)) {
+                speedY = 5 / 2 + i / 2;
+                speedY = Mainwidth / 210 + i / 4
+            }
+            ///////////////////// X 
+            if (parseFloat(parseFloat(getComputedStyle(ball).left)) <= parseFloat(padL.getBoundingClientRect().width)) {
+                if (parseFloat(getComputedStyle(padL).top) <= parseFloat(getComputedStyle(ball).top) && parseFloat(getComputedStyle(ball).top) <= parseFloat(getComputedStyle(padL).top) + parseFloat(getComputedStyle(padL).height)) {
+                    speedX = 7 / 2 + i / 2;
+                    speedX = Mainwidth / 150 + i / 4;
+                    i++;
+                } else {
+                    setTimeout(() => {
+                        speedX = 0;
+                        speedY = 0;
+                        let b = Math.max(+text2.innerHTML, i);
+                        text2.innerHTML = b;
+                        i = 0;
+                    }, 390)
+                    setTimeout(() => {
+                        ball.style.top = '50%';
+                        ball.style.left = '50%';
+                        speedX = 7 / 2 + i / 2;
+                        speedX = Mainwidth / 150 + i / 4;
+                        speedY = 5 / 2 + i / 2;
+                        speedY = Mainwidth / 210 + i / 4
+                        i = 0;
+                    }, 1000)
+                }
+            } else if (parseFloat(parseFloat(getComputedStyle(ball).left)) >= parseFloat(game.getBoundingClientRect().width) - parseFloat(ball.getBoundingClientRect().height * 1.5 + parseFloat(padL.getBoundingClientRect().width))) {
+                if (parseFloat(getComputedStyle(padR).top) <= parseFloat(getComputedStyle(ball).top) && parseFloat(getComputedStyle(ball).top) <= parseFloat(getComputedStyle(padR).top) + parseFloat(getComputedStyle(padR).height)) {
+                    speedX = -7 / 2 - i / 2;
+                    speedX = -Mainwidth / 150 - i / 4;
+                    i++;
+
+                } else {
+                    setTimeout(() => {
+                        speedX = 0;
+                        speedY = 0;
+                        let b = Math.max(+text2.innerHTML, i);
+                        text2.innerHTML = b;
+                        i = 0;
+                    }, 390)
+                    setTimeout(() => {
+                        ball.style.top = '50%';
+                        ball.style.left = '50%';
+                        speedX = 7 / 2 + i / 4;
+                        speedX = Mainwidth / 150 + i / 4;
+                        speedY = 5 / 2 + i / 4;
+                        speedY = Mainwidth / 210 + i / 4
+                        i = 0;
+                    }, 1000)
+                }
+            }
+            ball.style.top = `${parseFloat(getComputedStyle(ball).top) - speedY}px`;
+            ball.style.left = `${parseFloat(getComputedStyle(ball).left) + speedX}px`;
+        }, 100 / 2);
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
